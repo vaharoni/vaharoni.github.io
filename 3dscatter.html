@@ -1,0 +1,46 @@
+<html>
+<head>  
+  <script src="http://vaharoni.github.io/plotly_cdn/plotly-2.8.3.min.js"></script>  
+  <script src="http://vaharoni.github.io/lz_string_cdn/lz-string.min.js"></script>
+</head>
+<body>
+  
+  <center>
+    <div id="plot" style="width:800px;height:600px;"></div>
+  </center>
+
+  <script>
+    window.compressed = window.location.search.replace(/^\?data=/i, '')
+    window.string = LZString.decompressFromBase64(compressed)
+    window.json = JSON.parse(string)
+
+    const data = {
+      type: 'scatter3d',
+      x: window.json.x,
+      y: window.json.y,
+      z: window.json.z,
+      text: window.json.text,
+      mode: "markers",
+      marker: {
+        color: "rgba(31,119,180,1)",
+        line: { color: "rgba(31,119,180,1)" }
+      }, 
+    }
+
+    const layout = {
+      title: window.json.title,
+      margin: { b: 40, l: 60, t: 25, r: 10 },
+      scene: {
+        xaxis: { title: window.json.xaxis },
+        yaxis: { title: window.json.yaxis },
+        zaxis: { title: window.json.zaxis }
+      },
+      hovermode: "closest",
+      showlegend: false
+    }    
+
+    Plotly.newPlot(document.getElementById('plot'), [data], layout);
+  </script>
+
+</body>
+</html>
