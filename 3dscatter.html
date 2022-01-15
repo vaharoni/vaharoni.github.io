@@ -6,6 +6,12 @@
 <body>
   
   <center>
+    <button onclick="home()">Home</button>
+    <button onclick="setXY()">X-Y</button>
+    <button onclick="setYZ()">Y-Z</button>
+    <button onclick="setXZ()">X-Z</button>
+    <div id="camera" style="margin-top: 5px;"></div>
+    <hr/>
     <div id="plot" style="width:800px;height:600px;"></div>
   </center>
 
@@ -27,10 +33,48 @@
       'rgba(74,20,140,0.8)',
     ];
 
-    function render() {
+    function home() {
+      render();
+      document.getElementById('camera').innerHTML = null;
+    }
+
+    function setXY() {
+      render({
+        up: { x: 0, y: 1, z: 0 },
+        center: { x: 0, y: 0, z: 0 },
+        eye: { x: 0, y: 0.1, z: 2.5 },
+      });
+      document.getElementById('camera').innerHTML = `X-Y: ${window.json.yaxis} as a function of ${window.json.xaxis}`;
+    }
+
+    function setYZ() {
+      render({
+        up: { x: 0, y: 0, z: 1 },
+        center: { x: 0, y: 0, z: 0 },
+        eye: { x: 2.5, y: 0, z: 0.1 },
+      });
+      document.getElementById('camera').innerHTML = `Y-Z: ${window.json.zaxis} as a function of ${window.json.yaxis}`;
+    }
+    
+    function setXZ() {
+      render({
+        up: { x: 0, y: 0, z: 1 },
+        center: { x: 0, y: 0, z: 0 },
+        eye: { x: 0.05, y: -2.5, z: 0.1 },
+      });
+      document.getElementById('camera').innerHTML = `X-Z: ${window.json.zaxis} as a function of ${window.json.xaxis}`;
+    }
+
+    function render(camera) {
       window.compressed = window.location.search.replace(/^\?data=/i, '')
       window.string = LZString.decompressFromBase64(compressed)
       window.json = JSON.parse(string)
+
+      camera ||= {
+        up: { x: 0, y: 0, z: 1 },
+        center: { x: 0, y: 0, z: 0 },
+        eye: { x: 1.5, y: -1.5, z: 1.25 },
+      };
 
       window.layout = {
         title: window.json.title,
@@ -38,7 +82,8 @@
         scene: {
           xaxis: { title: window.json.xaxis },
           yaxis: { title: window.json.yaxis },
-          zaxis: { title: window.json.zaxis }
+          zaxis: { title: window.json.zaxis },
+          camera: camera,
         },
         hovermode: "closest",
         showlegend: !!window.json.groups
@@ -46,7 +91,7 @@
 
       window.data = window.json.groups ? buildGroupData() : buildNonGroupData()
         
-      Plotly.newPlot(document.getElementById('plot'), window.data, window.layout);
+      window.plot = Plotly.newPlot(document.getElementById('plot'), window.data, window.layout);
     }
 
     function buildNonGroupData() {
