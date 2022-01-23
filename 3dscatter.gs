@@ -1,5 +1,5 @@
 // This is the Google Script that is used to enable the Sheet function to3DScatterURL.
-// It is also stored in https://github.com/vaharoni/vaharoni.github.io/main/3dscatter.gs
+// It is also stored in https://github.com/vaharoni/vaharoni.github.io/blob/main/3dscatter.gs
 
 eval(UrlFetchApp.fetch('https://vaharoni.github.io/lz_string_cdn/lz-string.min.js').getContentText());
 const endpoint = 'https://vaharoni.github.io/3dscatter.html';
