@@ -17,6 +17,15 @@
   <link rel="alternate" hreflang="{{ lang }}" href="{{ site.baseurl_root }}/{{ lang }}{{ page.url | remove: "index.html" | remove: ".html" }}" />
     {% endif %}
   {% endfor %}
+
+  <link rel="apple-touch-icon" href="{{ site.baseurl_root }}/assets/favicons/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ site.baseurl_root }}/assets/favicons/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ site.baseurl_root }}/assets/favicons/android-chrome-512x512.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ site.baseurl_root }}/assets/favicons/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ site.baseurl_root }}/assets/favicons/favicon-16x16.png" />
+  <link rel="icon" href="{{ site.baseurl_root }}/assets/favicons/favicon.ico" />
+  <meta name="msapplication-TileColor" content="#FFFFF4" />
+  <meta name="msapplication-TileImage" content="{{ site.baseurl_root }}/assets/favicons/android-chrome-192x192.png" />
 </head>
 <body>
   {{ content }}
