@@ -1,6 +1,6 @@
 # Change this to your endpoint.
 # Note: In development, `yarn watch:html` script defined in package.json overrides this with an empty string
-baseurl: https://vaharoni.github.io/static-site-boilerplate
+baseurl: https://www.lycheestudio.com
 
 # First language is the default language
 languages: ["en"]
